@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">iTunesAndroidApplication</string>
+    <string name="currency">USD %s</string>
+</resources>

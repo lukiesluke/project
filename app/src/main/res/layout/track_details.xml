@@ -1,0 +1,67 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data class="TrackDetailsBinding">
+        <variable
+            name="model"
+            type="com.example.mksob.itunesandroidapplication.model.Track"/>
+    </data>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:scaleType="centerCrop"
+            android:id="@+id/imageURL"/>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/trackName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/normal"
+                    android:textColor="@color/textBlack"
+                    android:text="Sample"/>
+
+                <TextView
+                    android:id="@+id/trackGenre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/medium"
+                    android:textColor="@color/textBlack"
+                    android:text="Sample"/>
+
+                <TextView
+                    android:id="@+id/trackPrice"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/medium"
+                    android:textColor="@color/colorAccent"
+                    android:text="Sample"/>
+
+                <!--android:text="@{@string/currency(Double.toString(safeUnbox(model.collectionPrice)))}"-->
+
+                <TextView
+                    android:id="@+id/trackDescription"
+                    android:text="Sample"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/normal"
+                    android:textColor="@color/textBlack"/>
+
+            </LinearLayout>
+    </ScrollView>
+    </LinearLayout>
+</layout>
