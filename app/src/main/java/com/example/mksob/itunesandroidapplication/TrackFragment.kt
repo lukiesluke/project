@@ -45,19 +45,18 @@ class TrackFragment : Fragment() {
         tView = retrofitBinding.parentRetrofitlist
         retrofitBinding.pbLoading.visibility = View.VISIBLE
 
-        var dateBinding = DateBi(0, dateFMT)
+        val dateBi = DateBi(0, dateFMT)
 
-        Log.e("CLICK DATE ", dateBinding.date + " " + tView + " " + retrofitBinding.dateBi.toString())
+        Log.e("CLICK DATE ", dateBi.date + " " + tView + " " + retrofitBinding.dateBi.toString())
 
-        trackViewModel.insertDate(dateBinding)
+        trackViewModel.insertDate(dateBi)
 
         trackViewModel.getDate().observe(this, Observer<String> { t ->
-            Log.d("lwg", "t:" + t)
+            Log.d("Date ", "date from db: " + t)
             t?.let {
                 retrofitBinding.dateBi = DateBi(0, it)
             }
         })
-
 
         //   progressDialog = ProgressDialog.show(activity,"Progress","Loading...",false)
         setAdapter()

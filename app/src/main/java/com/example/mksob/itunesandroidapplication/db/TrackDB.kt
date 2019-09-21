@@ -20,14 +20,9 @@ class TrackDB {
         return mAllPosts
     }
 
-//    fun getDetails(): String {
-//        return mDetails
-//    }
-
     fun insertPost(postLists: List<Track>?) {
         InsertAsyncTask(TrackDao).execute(postLists)
     }
-
 
     class InsertAsyncTask internal constructor(trackDao: TrackDao) : AsyncTask<List<Track>, Void, Void>() {
         private var mAsyncUserDao: TrackDao = trackDao

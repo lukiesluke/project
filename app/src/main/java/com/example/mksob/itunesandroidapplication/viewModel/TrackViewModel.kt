@@ -4,34 +4,31 @@ import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.Transformations
 import android.databinding.ObservableField
-import android.util.Log
 import com.example.mksob.itunesandroidapplication.db.APIServiceFactory
 import com.example.mksob.itunesandroidapplication.db.DateBi
 import com.example.mksob.itunesandroidapplication.db.DateDB
 import com.example.mksob.itunesandroidapplication.db.TrackDB
 import com.example.mksob.itunesandroidapplication.model.Track
-import java.util.*
 
-class TrackViewModel: AndroidViewModel {
+class TrackViewModel : AndroidViewModel {
 
-    private  var postInfoDBRepository: TrackDB
-    private  var dateInfo : DateDB
-    private  var webServiceRepository: APIServiceFactory
-    private  lateinit var retroObservable: LiveData<List<Track>>
-    private  var mAllPosts: LiveData<List<Track>>
+    private var postInfoDBRepository: TrackDB
+    private var dateInfo: DateDB
+    private var webServiceRepository: APIServiceFactory
+    private lateinit var retroObservable: LiveData<List<Track>>
+    private var mAllPosts: LiveData<List<Track>>
     private var dateString: LiveData<String>
 
     var observableTrack: LiveData<Track>? = null
     var track = ObservableField<Track>()
     private var trackName: MutableLiveData<String>
 
-    constructor(application: Application) : super(application){
+    constructor(application: Application) : super(application) {
         postInfoDBRepository = TrackDB(application)
         dateInfo = DateDB(application)
         webServiceRepository = APIServiceFactory()
-        mAllPosts  = postInfoDBRepository.getAllPosts()
+        mAllPosts = postInfoDBRepository.getAllPosts()
         trackName = MutableLiveData()
         dateString = dateInfo.getDate()
     }
@@ -64,7 +61,7 @@ class TrackViewModel: AndroidViewModel {
     }
 
     fun fetchPostsFromWebSevice(): LiveData<List<Track>> {
-        retroObservable =webServiceRepository.providesWebService()
+        retroObservable = webServiceRepository.providesWebService()
         return retroObservable
     }
 
@@ -76,8 +73,8 @@ class TrackViewModel: AndroidViewModel {
         this.track.set(track)
     }
 
-    fun insertAllPosts(postLists: List<Track>?){
-        if(retroObservable.value!=null) {
+    fun insertAllPosts(postLists: List<Track>?) {
+        if (retroObservable.value != null) {
             postInfoDBRepository.insertPost(postLists)
         }
     }
@@ -86,8 +83,8 @@ class TrackViewModel: AndroidViewModel {
         dateInfo.insertDate(dateBi)
     }
 
-    fun getDate() : LiveData<String> {
-       return  dateInfo.getDate()
+    fun getDate(): LiveData<String> {
+        return dateInfo.getDate()
     }
 
     companion object {
