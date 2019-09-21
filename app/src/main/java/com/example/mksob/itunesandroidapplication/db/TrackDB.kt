@@ -6,11 +6,11 @@ import android.os.AsyncTask
 import com.example.mksob.itunesandroidapplication.model.Track
 
 class TrackDB {
-    private  var TrackDao: TrackDao
-    private  var mAllPosts: LiveData<List<Track>>
+    private var TrackDao: TrackDao
+    private var mAllPosts: LiveData<List<Track>>
 //    private  var mDetails: String
 
-    constructor(application: Application){
+    constructor(application: Application) {
         val db = TrackRoomDatabase.getInstance(application)
         TrackDao = db!!.trackDao()
         mAllPosts = TrackDao.getAllPosts()
@@ -29,14 +29,11 @@ class TrackDB {
     }
 
 
+    class InsertAsyncTask internal constructor(trackDao: TrackDao) : AsyncTask<List<Track>, Void, Void>() {
+        private var mAsyncUserDao: TrackDao = trackDao
 
-    class InsertAsyncTask internal  constructor(TrackDao: TrackDao): AsyncTask<List<Track>, Void, Void>(){
-        private  var mAsyncUserDao: TrackDao
-        init {
-            mAsyncUserDao = TrackDao
-        }
         override fun doInBackground(vararg p0: List<Track>): Void? {
-            if(p0[0]!=null) {
+            if (p0[0] != null) {
                 mAsyncUserDao.insertPosts(p0[0])
             }
             return null

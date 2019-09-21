@@ -18,12 +18,10 @@ import com.example.mksob.itunesandroidapplication.adapter.TrackAdapter
 import com.example.mksob.itunesandroidapplication.adapter.TrackCallListener
 import com.example.mksob.itunesandroidapplication.databinding.RetrofitFragmentBindings
 import com.example.mksob.itunesandroidapplication.db.DateBi
-import com.example.mksob.itunesandroidapplication.model.DateBinding
 import com.example.mksob.itunesandroidapplication.model.Track
 import com.example.mksob.itunesandroidapplication.viewModel.TrackViewModel
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 class TrackFragment : Fragment() {
     lateinit var tView: View
@@ -47,13 +45,20 @@ class TrackFragment : Fragment() {
         tView = retrofitBinding.parentRetrofitlist
         retrofitBinding.pbLoading.visibility = View.VISIBLE
 
-        var dateBinding = DateBinding(0, dateFMT)
+        var dateBinding = DateBi(0, dateFMT)
 
         Log.e("CLICK DATE ", dateBinding.date + " " + tView + " " + retrofitBinding.dateBi.toString())
-        val d = DateBi(1, dateBinding.date)
 
-        trackViewModel.insertDate(d)
-        retrofitBinding.dateBi = dateBinding
+        trackViewModel.insertDate(dateBinding)
+
+        trackViewModel.getDate().observe(this, Observer<String> { t ->
+            Log.d("lwg", "t:" + t)
+            t?.let {
+                retrofitBinding.dateBi = DateBi(0, it)
+            }
+        })
+
+
         //   progressDialog = ProgressDialog.show(activity,"Progress","Loading...",false)
         setAdapter()
         trackViewModel.fetchPostsFromWebSevice().observe(this, object : Observer<List<Track>> {

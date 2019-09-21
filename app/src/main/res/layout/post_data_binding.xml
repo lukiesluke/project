@@ -4,7 +4,7 @@
     <data class="RetrofitFragmentBindings" >
         <variable
             name="dateBi"
-            type="com.example.mksob.itunesandroidapplication.model.DateBinding"/>
+            type="com.example.mksob.itunesandroidapplication.db.DateBi"/>
     </data>
 
     <FrameLayout

@@ -86,6 +86,10 @@ class TrackViewModel: AndroidViewModel {
         dateInfo.insertDate(dateBi)
     }
 
+    fun getDate() : LiveData<String> {
+       return  dateInfo.getDate()
+    }
+
     companion object {
         private val TAG = TrackViewModel::class.java!!.getName()
         private val ABSENT = MutableLiveData<String>()

@@ -49,11 +49,7 @@ abstract  class TrackRoomDatabase: RoomDatabase() {
 
         class PopulateDbAsync internal constructor(db: TrackRoomDatabase) : AsyncTask<Void, Void, Void>() {
 
-            private val mDao: TrackDao
-
-            init {
-                mDao = db.trackDao()
-            }
+            private val mDao: TrackDao = db.trackDao()
 
             override fun doInBackground(vararg params: Void): Void? {
                 mDao.deleteAll()
