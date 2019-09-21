@@ -4,18 +4,18 @@ import android.app.Application
 import android.arch.lifecycle.LiveData
 import android.os.AsyncTask
 
-class DateDB {
+class DateDB(application: Application) {
     private var dateDao: DateDao
     private var dateString: LiveData<String>
 
-    constructor(application: Application) {
+    init {
         val db = TrackRoomDatabase.getInstance(application)
         dateDao = db!!.dateDao()
         dateString = dateDao.getDate()
     }
 
     fun insertDate(dateBi: DateBi?) {
-        DateDB.InsertAsyncTask(dateDao).execute(dateBi)
+        InsertAsyncTask(dateDao).execute(dateBi)
     }
 
     fun getDate(): LiveData<String> {
@@ -26,9 +26,7 @@ class DateDB {
         private var mAsyncUserDao: DateDao = dateDao
 
         override fun doInBackground(vararg p0: DateBi): Void? {
-            if (p0 != null) {
-                mAsyncUserDao.insert(p0[0])
-            }
+            mAsyncUserDao.insert(p0[0])
             return null
         }
     }

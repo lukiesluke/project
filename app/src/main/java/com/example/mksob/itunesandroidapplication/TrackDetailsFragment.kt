@@ -1,10 +1,7 @@
 package com.example.mksob.itunesandroidapplication
 
-import android.app.ProgressDialog
-import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
-import android.content.res.Resources
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.annotation.Nullable
@@ -14,19 +11,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
-import com.example.mksob.itunesandroidapplication.adapter.TrackAdapter
-import com.example.mksob.itunesandroidapplication.adapter.TrackCallListener
-import com.example.mksob.itunesandroidapplication.databinding.RetrofitFragmentBindings
 import com.example.mksob.itunesandroidapplication.databinding.TrackDetailsBinding
 import com.example.mksob.itunesandroidapplication.model.Track
-import com.example.mksob.itunesandroidapplication.second.TrackDViewModel
 import com.example.mksob.itunesandroidapplication.viewModel.TrackViewModel
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.track_details.*
-import org.json.JSONObject
 
 class TrackDetailsFragment: Fragment() {
 

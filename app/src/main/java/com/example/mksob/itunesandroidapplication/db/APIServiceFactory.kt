@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.util.Log
+import com.example.mksob.itunesandroidapplication.model.ResultTrack
 import com.example.mksob.itunesandroidapplication.model.Track
 import okhttp3.OkHttpClient
 import org.json.JSONArray
@@ -15,15 +16,13 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
-import java.text.SimpleDateFormat
 import java.time.LocalDate
-import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 import java.util.*
 import java.util.concurrent.TimeUnit
 
-public class APIServiceFactory {
+class APIServiceFactory {
     private fun providesOkHttpClientBuilder(): OkHttpClient {
 
         val httpClient = OkHttpClient.Builder()
@@ -46,15 +45,13 @@ public class APIServiceFactory {
 
             //Defining retrofit api service
             val service = retrofit.create(APIService::class.java)
-            //  response = service.makeRequest().execute().body();
-            service.makeRequest().enqueue(object : Callback<String> {
-                override fun onResponse(call: Call<String>, response: Response<String>) {
-                    Log.d("Repository", "Response::::" + response.body()!!)
-                    webserviceResponseList = parseJson(response.body())
+            service.makeRequest().enqueue(object : Callback<ResultTrack> {
+                override fun onResponse(call: Call<ResultTrack>, response: Response<ResultTrack>) {
+                    webserviceResponseList = response.body()!!.track!!
                     data.setValue(webserviceResponseList)
                 }
 
-                override fun onFailure(call: Call<String>, t: Throwable) {
+                override fun onFailure(call: Call<ResultTrack>, t: Throwable) {
                     Log.d("Repository", "Failed:::")
                 }
             })
@@ -63,7 +60,6 @@ public class APIServiceFactory {
         }
 
         return data
-
     }
 
     @SuppressLint("NewApi")
@@ -80,27 +76,27 @@ public class APIServiceFactory {
                 var jsonInfo: JSONObject = jsonArray.getJSONObject(jsonIndex)
                 val mMovieModel = Track()
 
-                if(!jsonInfo.isNull("trackName")) {
+                if (!jsonInfo.isNull("trackName")) {
                     mMovieModel.setTrackName(jsonInfo.getString("trackName"))
                 }
 
-                if(!jsonInfo.isNull("primaryGenreName")) {
+                if (!jsonInfo.isNull("primaryGenreName")) {
                     mMovieModel.setTrackGenre(jsonInfo.getString("primaryGenreName"))
                 }
 
-                if(!jsonInfo.isNull("artworkUrl100")) {
-                    mMovieModel.setImageUrl(jsonInfo.getString("artworkUrl100")?.replace("100x100","600x600"))
+                if (!jsonInfo.isNull("artworkUrl100")) {
+                    mMovieModel.setImageUrl(jsonInfo.getString("artworkUrl100")?.replace("100x100", "600x600"))
                 }
 
-                if(!jsonInfo.isNull("collectionPrice")) {
+                if (!jsonInfo.isNull("collectionPrice")) {
                     mMovieModel.setCollectionPrice(jsonInfo.getDouble("collectionPrice"))
                 }
 
-                if(!jsonInfo.isNull("longDescription")) {
+                if (!jsonInfo.isNull("longDescription")) {
                     mMovieModel.setTrackDescription(jsonInfo.getString("longDescription"))
                 }
 
-                if(!jsonInfo.isNull("releaseDate")) {
+                if (!jsonInfo.isNull("releaseDate")) {
                     mMovieModel.setReleaseDate(LocalDate.parse(jsonInfo.getString("releaseDate"), formatter).format(dateFormatter))
                 }
 
